@@ -49,7 +49,7 @@ int main()
 
 	hThread[0] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a1, 0, NULL);
 	hThread[1] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun1, &a2, 0, NULL);
-	//µÈ´ıËùÓĞÏß³Ì½áÊø
+	//ç­‰å¾…æ‰€æœ‰çº¿ç¨‹ç»“æŸ
 	WaitForMultipleObjects(2, hThread, true, INFINITE);
 	CloseHandle(hThread[0]);
 	CloseHandle(hThread[1]);
@@ -61,10 +61,10 @@ int main()
 #include <stdio.h>  
 #include <windows.h>  
 #include <process.h>
-volatile long g_nLoginCount; //µÇÂ¼´ÎÊı  
-DWORD __stdcall ThreadFun(void *pPM); //Ïß³Ìº¯Êı  
+volatile long g_nLoginCount; //ç™»å½•æ¬¡æ•°  
+DWORD __stdcall ThreadFun(void *pPM); //çº¿ç¨‹å‡½æ•°  
 
-const int THREAD_NUM = 100;//Æô¶¯Ïß³ÌÊı  
+const int THREAD_NUM = 100;//å¯åŠ¨çº¿ç¨‹æ•°  
 
 DWORD WINAPI ThreadFun(void *pPM)
 {
@@ -76,10 +76,10 @@ DWORD WINAPI ThreadFun(void *pPM)
 }
 int main()
 {
-	printf("     Ô­×Ó²Ù×÷ InterlockedÏµÁĞº¯ÊıµÄÊ¹ÓÃ\n");
+	printf("     åŸå­æ“ä½œ Interlockedç³»åˆ—å‡½æ•°çš„ä½¿ç”¨\n");
 	printf(" -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n");
 
-	//ÖØ¸´20´ÎÒÔ±ã¹Û²ì¶àÏß³Ì·ÃÎÊÍ¬Ò»×ÊÔ´Ê±µ¼ÖÂµÄ³åÍ»  
+	//é‡å¤20æ¬¡ä»¥ä¾¿è§‚å¯Ÿå¤šçº¿ç¨‹è®¿é—®åŒä¸€èµ„æºæ—¶å¯¼è‡´çš„å†²çª  
 	int num = 20;
 	while (num--)
 	{
@@ -89,7 +89,7 @@ int main()
 		for (i = 0; i < THREAD_NUM; i++)
 			handle[i] = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);
 			//handle[i] = _beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);
-		// ÓÉÓÚWaitForMultipleObjects()¶ÔµÈ´ıµÄĞòÁĞÓĞ×î´óÏŞÖÆ£¬ËùÒÔ²ÉÓÃ·ÖÅúµÈ´ı£¬±ÜÃâµ÷ÓÃ³ö´í£»
+		// ç”±äºWaitForMultipleObjects()å¯¹ç­‰å¾…çš„åºåˆ—æœ‰æœ€å¤§é™åˆ¶ï¼Œæ‰€ä»¥é‡‡ç”¨åˆ†æ‰¹ç­‰å¾…ï¼Œé¿å…è°ƒç”¨å‡ºé”™ï¼›
 		int thread_num = THREAD_NUM;
 		while (thread_num > MAXIMUM_WAIT_OBJECTS)
 		{	
@@ -97,7 +97,7 @@ int main()
 			thread_num = THREAD_NUM - MAXIMUM_WAIT_OBJECTS;
 		}
 		WaitForMultipleObjects(thread_num, handle, TRUE, INFINITE);
-		printf("ÓĞ%d¸öÓÃ»§µÇÂ¼ºó¼ÇÂ¼½á¹ûÊÇ%d\n", THREAD_NUM, g_nLoginCount);
+		printf("æœ‰%dä¸ªç”¨æˆ·ç™»å½•åè®°å½•ç»“æœæ˜¯%d\n", THREAD_NUM, g_nLoginCount);
 	}
 	return 0;
 }
@@ -105,7 +105,7 @@ int main()
 #endif
 
 #if 0
-//malloc×î´óÄÚ´æ ²âÊÔ³ÌĞò
+//mallocæœ€å¤§å†…å­˜ æµ‹è¯•ç¨‹åº
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -137,12 +137,12 @@ int main()
 }
 #endif
 #if 0
-// ¶àÏß³Ì²âÊÔ¹²Ïí×ÊÔ´Ôà¶Á
+// å¤šçº¿ç¨‹æµ‹è¯•å…±äº«èµ„æºè„è¯»
 #include <stdio.h>  
 #include <windows.h>  
-volatile long g_nLoginCount;           //µÇÂ¼´ÎÊı  
-DWORD __stdcall Fun(void *pPM);         //Ïß³Ìº¯Êı  
-const DWORD THREAD_NUM = 50;           //Æô¶¯Ïß³ÌÊı  
+volatile long g_nLoginCount;           //ç™»å½•æ¬¡æ•°  
+DWORD __stdcall Fun(void *pPM);         //çº¿ç¨‹å‡½æ•°  
+const DWORD THREAD_NUM = 50;           //å¯åŠ¨çº¿ç¨‹æ•°  
 DWORD WINAPI ThreadFun(void *pPM)
 {
 	Sleep(100); //some work should to do  
@@ -152,10 +152,10 @@ DWORD WINAPI ThreadFun(void *pPM)
 }
 int main()
 {
-	printf("     Ô­×Ó²Ù×÷ InterlockedÏµÁĞº¯ÊıµÄÊ¹ÓÃ\n");
+	printf("     åŸå­æ“ä½œ Interlockedç³»åˆ—å‡½æ•°çš„ä½¿ç”¨\n");
 	printf(" -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n");
 
-	//ÖØ¸´20´ÎÒÔ±ã¹Û²ì¶àÏß³Ì·ÃÎÊÍ¬Ò»×ÊÔ´Ê±µ¼ÖÂµÄ³åÍ»  
+	//é‡å¤20æ¬¡ä»¥ä¾¿è§‚å¯Ÿå¤šçº¿ç¨‹è®¿é—®åŒä¸€èµ„æºæ—¶å¯¼è‡´çš„å†²çª  
 	int num = 20;
 	while (num--)
 	{
@@ -165,7 +165,7 @@ int main()
 		for (i = 0; i < THREAD_NUM; i++)
 			handle[i] = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);
 		WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);
-		printf("ÓĞ%d¸öÓÃ»§µÇÂ¼ºó¼ÇÂ¼½á¹ûÊÇ%d\n", THREAD_NUM, g_nLoginCount);
+		printf("æœ‰%dä¸ªç”¨æˆ·ç™»å½•åè®°å½•ç»“æœæ˜¯%d\n", THREAD_NUM, g_nLoginCount);
 	}
 	getchar();
 	return 0;
@@ -201,7 +201,7 @@ int main()
 	int a2 = 2;
 	hThread[0] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a1, 0, NULL);
 	hThread[1] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a2, 0, NULL);
-	//µÈ´ıËùÓĞÏß³Ì½áÊø
+	//ç­‰å¾…æ‰€æœ‰çº¿ç¨‹ç»“æŸ
 	WaitForMultipleObjects(2, hThread, true, INFINITE);
 	CloseHandle(hThread[0]);
 	CloseHandle(hThread[1]);
@@ -361,5 +361,3 @@ int main()
 }
 #endif
 
-
-#include <stdio.h>
