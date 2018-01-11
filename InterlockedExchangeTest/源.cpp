@@ -57,7 +57,7 @@ int main()
 	return 0;
 }
 #endif
-#if 1
+#if 0
 #include <stdio.h>  
 #include <windows.h>  
 #include <process.h>
@@ -171,6 +171,7 @@ int main()
 	return 0;
 }
 #endif
+
 #if 0
 #include <iostream>
 #include <process.h>
@@ -359,3 +360,6 @@ int main()
 	return 0;
 }
 #endif
+
+
+#include <stdio.h>
