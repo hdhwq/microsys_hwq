@@ -49,7 +49,7 @@ int main()
 
 	hThread[0] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a1, 0, NULL);
 	hThread[1] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun1, &a2, 0, NULL);
-	//等待所有线程结束
+	//等待所有线程结�?
 	WaitForMultipleObjects(2, hThread, true, INFINITE);
 	CloseHandle(hThread[0]);
 	CloseHandle(hThread[1]);
@@ -64,7 +64,7 @@ int main()
 volatile long g_nLoginCount; //登录次数  
 DWORD __stdcall ThreadFun(void *pPM); //线程函数  
 
-const int THREAD_NUM = 100;//启动线程数  
+const int THREAD_NUM = 100;//启动线程�? 
 
 DWORD WINAPI ThreadFun(void *pPM)
 {
@@ -89,7 +89,7 @@ int main()
 		for (i = 0; i < THREAD_NUM; i++)
 			handle[i] = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);
 			//handle[i] = _beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);
-		// 由于WaitForMultipleObjects()对等待的序列有最大限制，所以采用分批等待，避免调用出错；
+		// 由于WaitForMultipleObjects()对等待的序列有最大限制，所以采用分批等待，避免调用出错�?
 		int thread_num = THREAD_NUM;
 		while (thread_num > MAXIMUM_WAIT_OBJECTS)
 		{	
@@ -97,7 +97,7 @@ int main()
 			thread_num = THREAD_NUM - MAXIMUM_WAIT_OBJECTS;
 		}
 		WaitForMultipleObjects(thread_num, handle, TRUE, INFINITE);
-		printf("有%d个用户登录后记录结果是%d\n", THREAD_NUM, g_nLoginCount);
+		printf("�?d个用户登录后记录结果�?d\n", THREAD_NUM, g_nLoginCount);
 	}
 	return 0;
 }
@@ -105,7 +105,7 @@ int main()
 #endif
 
 #if 0
-//malloc最大内存 测试程序
+//malloc最大内�?测试程序
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -137,12 +137,12 @@ int main()
 }
 #endif
 #if 0
-// 多线程测试共享资源脏读
+// 多线程测试共享资源脏�?
 #include <stdio.h>  
 #include <windows.h>  
 volatile long g_nLoginCount;           //登录次数  
 DWORD __stdcall Fun(void *pPM);         //线程函数  
-const DWORD THREAD_NUM = 50;           //启动线程数  
+const DWORD THREAD_NUM = 50;           //启动线程�? 
 DWORD WINAPI ThreadFun(void *pPM)
 {
 	Sleep(100); //some work should to do  
@@ -165,7 +165,7 @@ int main()
 		for (i = 0; i < THREAD_NUM; i++)
 			handle[i] = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);
 		WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);
-		printf("有%d个用户登录后记录结果是%d\n", THREAD_NUM, g_nLoginCount);
+		printf("�?d个用户登录后记录结果�?d\n", THREAD_NUM, g_nLoginCount);
 	}
 	getchar();
 	return 0;
@@ -201,7 +201,7 @@ int main()
 	int a2 = 2;
 	hThread[0] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a1, 0, NULL);
 	hThread[1] = (HANDLE)_beginthreadex(NULL, 0, &ThreadFun, &a2, 0, NULL);
-	//等待所有线程结束
+	//等待所有线程结�?
 	WaitForMultipleObjects(2, hThread, true, INFINITE);
 	CloseHandle(hThread[0]);
 	CloseHandle(hThread[1]);
@@ -361,3 +361,17 @@ int main()
 }
 #endif
 
+#if 1
+
+int main()
+{
+	int send_buffer_size = 2048;
+	int size = 2 ;
+
+	//send_buffer_size += ((size + 1023) >> 10) << 10;
+	send_buffer_size += 2 * 1024 * 1024;
+	printf("%d\n", send_buffer_size);
+	getchar();
+	return 0;
+}
+#endif
