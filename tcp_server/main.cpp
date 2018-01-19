@@ -1,13 +1,19 @@
 #include <iostream>
-#include <winsock.h>
+#include <winsock2.h>
+//#include <winsock.h>
 #include <stdio.h>
+#include <Windows.h>
+#include <ws2def.h>
 
 using namespace std;
-#if 0
+#if 1
 // tcp server
 int main()
 {
 	WSADATA wsadata;
+	WSABUF  wsabuf;
+	memset(&wsabuf, 0, sizeof(wsabuf));
+	
 	int ret = WSAStartup(0x0202, &wsadata);
 	if (ret != 0 || 0x0202 != wsadata.wVersion)
 	{
@@ -45,6 +51,12 @@ int main()
 	SOCKET conSock;
 	sockaddr_in addrCon;
 	int len = sizeof(addrCon);
+	DWORD written = 0;
+	DWORD n =0;
+	DWORD flag=0;
+	wsabuf.buf = "BYE!!!";
+	struct pollfd pollfds[100];
+	int i = 0;
 	while (true)
 	{
 		conSock = accept(listenSock, (sockaddr*)&addrCon, &len);
@@ -53,7 +65,34 @@ int main()
 			cout << "Accept Error" << endl;
 			return 0;
 		}
-		cout << inet_ntoa(addrCon.sin_addr) << " Connect to Server!" << endl;
+		else
+		{
+			pollfds[i].fd = conSock;
+			pollfds[i].events = POLLIN;
+			//pollfds[i].revents = 0;
+			cout << " Connect to Server!" << endl;
+			while (1)
+			{
+				ret = WSAPoll(pollfds,i+1,-1);
+				{
+					cout << "revent = " << pollfds[i].revents << endl;
+					break;
+				}
+			    //ret = WSARecv(conSock, &wsabuf, 1, &n, &flag, NULL, NULL);
+				//int ret = WSARecv(INVALID_SOCKET, &wsabuf, 1, &n, &flag, NULL, NULL);
+				/*if (ret == SOCKET_ERROR)
+				{
+					cout << "Accept Error" << endl;
+					getchar();
+					return 0;
+				}
+				cout << "a" << ret << endl;
+				WSASend(conSock, &wsabuf, 1, &written, 0, NULL, NULL);*/
+			}
+			i++;
+
+		}
+			
 
 	}
 
@@ -65,7 +104,7 @@ int main()
 	return 0;
 }
 #endif
-#if 1 
+#if 0 
 //udp server
 int main()
 {
