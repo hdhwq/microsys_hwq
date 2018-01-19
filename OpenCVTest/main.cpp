@@ -20,6 +20,7 @@ int main()
 #include <opencv2/core/core.hpp>    
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/opencv.hpp> 
+using namespace cv;
 int main()
 {
 	//加载源图像和模板图像  
@@ -38,13 +39,24 @@ int main()
 
 	cv::Mat image_color;
 	cv::cvtColor(image_source, image_color, CV_GRAY2BGR);
-	cv::circle(image_color,
-		cv::Point(maxLoc.x + image_template.cols / 2, maxLoc.y + image_template.rows / 2),
-		20,
-		cv::Scalar(0, 0, 255),
-		2,
-		8,
-		0);
+	//cv::circle(image_color,
+	//	cv::Point(maxLoc.x + image_template.cols / 2, maxLoc.y + image_template.rows / 2),
+	//	10,
+	//	cv::Scalar(0, 255, 255),
+	//	2,
+	//	8,
+	//	0);
+
+
+	Point c (maxLoc.x + image_template.cols / 2, maxLoc.y + image_template.rows / 2);
+	Point a (c.x + 20, c.y + 15);
+	Point b (c.x - 20, c.y - 20);
+
+	cv::rectangle(image_color,
+		a,b,
+		cv::Scalar(0, 0, 255), 1, 1, 0
+	);
+
 
 	cv::imshow("source image", image_source);
 	cv::imshow("match result", image_matched);
